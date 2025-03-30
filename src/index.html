@@ -74,31 +74,31 @@
                 </ul>
             </aside>
             <div class="content">
-                <div class="dashboard">
-                    <h2>TryHackMe Account Data</h2>
-                    <div class="stats-container">
-                        <div class="stat-card">
-                            <h3>User Account Rank</h3>
-                            <p id="stat-rank">Level 6</p>
+                <ul class="tabs">
+                    <div class="target-panel">
+                        <h2>Target Servers</h2>
+                        <form id="target-form">
+                            <input type="text" id="target-name" placeholder="Enter target name" required>
+                            <input type="text" id="target-ip" placeholder="Enter target IP" required>
+                            <button type="submit">Add Target</button>
+                        </form>
+                        <button id="list-targets-btn">List All Targets</button>
+                        <ul id="target-list" class="target-list">
+                            <!-- Target servers will be dynamically added here -->
+                        </ul>
                         </div>
-                        <div class="stat-card">
-                            <h3>Rooms Completed</h3>
-                            <p id="stat-rooms">120</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Challenges Solved</h3>
-                            <p id="stat-challenges">22</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Badges Earned</h3>
-                            <p id="stat-badges">6</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Points</h3>
-                            <p id="stat-points">2496</p>
+
+                    <!-- Modal for listing all targets -->
+                    <div id="target-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-btn">&times;</span>
+                            <h2>All Target Servers</h2>
+                            <ul id="all-targets-list">
+                                <!-- All targets will be listed here -->
+                            </ul>
                         </div>
                     </div>
-                </div>
+                </ul>
             </div>
             <footer>
                 <div class="social-media">
