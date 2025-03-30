@@ -10,27 +10,56 @@
     <body>
         <header>
             <nav>
-                <button class="menu-btn">
-                    <i class="fas fa-bars"></i>
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="menu-btn"></button>
                 <logo href="index.html">
-                    <i class="logo">Tryhackme Toolset</i>
+                    <i class="logo">Dashboard</i>
                 </logo>
+                <ul class="nav-links"></ul>
             </nav>
         </header>
         <main>
-            <div class=sidebar></div>
             <aside class="sideboard">
                 <div class="sideboard-header">
                     <h2>THMT</h2>
                 </div>
                 <ul class="sideboard-menu">
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#recon">Recon</a></li>
-                    <li><a href="#enumeration">Enumeration</a></li>
-                    <li><a href="#exploitation">Exploitation</a></li>
-                    <li><a href="#web-attacks">Web Attacks</a></li>
+                    <li class="dropdown">
+                        <a href="#overview" class="dropdown-btn">Overview</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#overview-details">Details</a></li>
+                            <li><a href="#overview-stats">Stats</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#recon" class="dropdown-btn">Recon</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#recon-tools">Port Scan</a></li>
+                            <li><a href="#recon-tools">Fingerprinting</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#enumeration" class="dropdown-btn">Enumeration</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#enum-tools">Subdomains</a></li>
+                            <li><a href="#enum-tools">Directories</a></li>
+                            <li><a href="#enum-tools">Users</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#exploitation" class="dropdown-btn">Exploitation</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#exploit-tools">Create Listener</a></li>
+                            <li><a href="#exploit-tools">Create Reverse Shell</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#web-attacks" class="dropdown-btn">Web Attacks</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#web-tools">Web Vulnerability Scanner</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <ul class="sideboard-menu">
                     <li class="dropdown">
                         <a href="#user" class="dropdown-btn">User Settings</a>
                         <ul class="dropdown-menu">
@@ -41,28 +70,17 @@
                     </li>
                 </ul>
             </aside>
-            <div class="content">
-                <section id="tryhackme-profile" class="profile-section">
-                    <div class="profile-header">
-                        <h2>My TryHackMe Profile</h2>
-                    </div>
-                    <div class="profile-content">
-                        <img src="https://tryhackme-images.s3.amazonaws.com/user-avatars/67bbbe0b7e5aa45878bf0863-1742083492488" alt="TryHackMe Profile Badge" class="profile-badge">
-                        <p>Check out my TryHackMe profile for hacking challenges and learning resources:</p>
-                        <a href="https://tryhackme.com/p/anarcho" target="_blank" class="profile-link">Visit My Profile</a>
-                    </div>
-                </section>
-            </div>
+            <div class="content"></div>
+            <footer>
+                <div class="social-media">
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+                <p>&copy;2025 Tryhackme Toolset. All rights reserved by Jens Becker.</p>
+            </footer>
         </main>
     </body>
-    <footer>
-        <div class="social-media">
-            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-        <p>&copy;2025 Tryhackme Toolset. All rights reserved by Jens Becker.</p>
-    </footer>
 </html>
