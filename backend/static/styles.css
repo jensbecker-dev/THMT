@@ -464,4 +464,88 @@ footer a:hover {
     color: #ff0000;
 }
 
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #28263a;
+}
+
+.login-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-form h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form form input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form form button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.login-form form button:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+/* Flash Messages */
+.flash-messages {
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.flash {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.flash-success {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.flash-error {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.flash-info {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.flash-warning {
+    background-color: #f1c40f;
+    color: #fff;
+}
+
 /* End of CSS */
