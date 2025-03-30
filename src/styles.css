@@ -191,7 +191,7 @@ nav a:hover {
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #ffffff;
 }
 h2 {
     color: #ff0000;
@@ -247,14 +247,19 @@ img {
     row-gap: 20px;
     column-gap: 20px;
 }
-.profile-content {
-    position:relative;
-    padding: 20px;
-    color: #28263a;
+.content {
+    color: #ffffff;
     background-color: #ffffff;
     columns: 1;
+    grid-row: 2;
+    grid-column: 2;
     row-gap: 20px;
     column-gap: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 20%;
+    padding-right: 10%;
+    padding-top: 50px;
+    padding-bottom: 10%;
 }
 .social-link {
     border-radius: 50%;
@@ -307,49 +312,78 @@ footer a:hover {
     color: #ff0000;
 }
 
-/* Profile Section Styling */
-.profile-section {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 800px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
+/* Dashboard container */
+.dashboard {
+    margin-top: 50px;
+    padding-top: 20px;
+    background-color: #28263a;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1000px;
+    border-radius: 8px;
+    padding: 20px;
+    color: #28263a;
+    font-family: 'Courier New', Courier, monospace;
     text-align: center;
 }
 
-.profile-header h2 {
+/* Dashboard header */
+.dashboard h1 {
+    font-size: 3em;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Dashboard content */
+.dashboard .content {
+    text-align: center;
+}
+
+.dashboard h2 {
     font-size: 2em;
-    color: #2c3e50;
+    color: #ffffff;
+}
+
+/* Stats container */
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    gap: 20px;
+}
+
+/* Individual stat card */
+.stat-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card h3 {
+    font-size: 1em;
+    color: #34495e;
     margin-bottom: 10px;
 }
 
-.profile-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+.stat-card p {
+    font-size: 1.5em;
+    color: #f70000;
+    font-weight: bold;
 }
-
-.profile-badge {
-    width: 200px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.profile-link {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #1abc9c;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease;
-}
-
-.profile-link:hover {
-    background-color: #16a085;
+/* Hover effect for stat cards */
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 /* End of CSS */
