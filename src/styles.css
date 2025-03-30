@@ -1,0 +1,351 @@
+/* CSS Style sheet for the HTML page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #ffffff;
+    margin: auto;
+    padding: 20px;
+}
+nav {
+    background-color: #28263a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: auto;
+    margin: auto;
+    box-shadow: 0 2px;
+}
+nav a {
+    color: #ffffff;
+    padding: 10px 30px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+nav a:hover {
+    color: #ff0000;
+}
+nav a:hover {
+    color: #c74343;
+}
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-right: 20px;
+    color: #ff0000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border: #000000;
+}
+.logo:hover {
+    color: #c74343;
+}
+.menu-button {
+    display: flex;
+    align-items: center;
+}
+/* General reset for sideboard */
+.sideboard {
+    background-color: #28263a;
+    color: #ffffff;
+    height: 100%;
+    width: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+.sideboard-header {
+    padding: 20px;
+    text-align: center;
+    background-color: #28263a;
+    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-bottom: 1px solid #7f8c8d;
+}
+.sideboard-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 10;
+}
+.sideboard-menu li {
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 1px solid #7f8c8d;
+}
+.sideboard-menu li a {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: block;
+    padding: 15px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+.sideboard-menu li a:hover {
+    background-color: #f80303;
+    color: #ffffff;
+    text-decoration: none;
+}
+.sideboard-menu li a:active {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+h2 {
+    color: #ff0000;
+}
+h3 {
+    color: #000000;
+}
+p {
+    line-height: 1.6;
+    color: #777777;
+}
+ul {
+    padding: 0;
+    margin: 0;
+}
+li {
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+a:hover {
+    color: #919191;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    padding: 0;
+}
+.main {
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    color: #28263a;
+    background-color: #ffffff;
+    columns: 2;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+.main-content {
+    padding: 20px;
+    color: #28263a;
+    background-color: #ffffff;
+    columns: 1;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+.profile-content {
+    position:relative;
+    padding: 20px;
+    color: #28263a;
+    background-color: #ffffff;
+    columns: 1;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+.social-link {
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 5%;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    background-color: #28263a;
+    color: #ffffff;
+}
+.social-link:hover {
+    color: #ff0000;
+    width: 200%
+}
+.social-link img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.social-link img:hover {
+    transform: scale(2.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.8em;
+    color: #ffffff;
+    padding: 5%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    position: fixed;
+    background-color: #28263a;
+}
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+footer a:hover {
+    color: #ff0000;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: auto
+}
+
+/* Dropdown button */
+.dropdown-btn {
+    display: block;
+    padding: 15px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+/* Dropdown button hover effect */
+.dropdown-btn:hover {
+    background-color: #b30000;
+    color: #ffffff;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display:flex;
+    flex-direction: column;
+    display: none;
+    padding: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #28263a;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show dropdown menu */
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translate(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Dropdown menu items */
+.dropdown-menu li {
+    border-bottom: 1px solid #7f8c8d;
+}
+
+.dropdown-menu li a {
+    margin-top: 10px;
+    display: block;
+    padding: 10px 15px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+/* Dropdown menu items hover effect */
+.dropdown-menu li a:hover {
+    background-color: #db0202;
+    color: #ffffff;
+}
+
+/* Show dropdown menu on hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Profile Section Styling */
+.profile-section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-header h2 {
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-badge {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1abc9c;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.profile-link:hover {
+    background-color: #16a085;
+}
+/* End of CSS */
