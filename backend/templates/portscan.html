@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Port Scanner</h1>
+        <input type="text" id="ipAddress" placeholder="Enter IP Address">
+        <input type="text" id="ports" placeholder="Enter Ports (e.g., 80, 443)">
+        <button onclick="scanPorts()">Scan</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        async function scanPorts() {
+        const ipAddress = document.getElementById('ipAddress').value;
+        const portsInput = document.getElementById('ports').value;
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = 'Scanning...';
+
+        // Parse the ports input
+        let ports = [];
+        try {
+            if (portsInput.includes('-')) {
+                // Handle range input (e.g., 1-10000)
+                const [start, end] = portsInput.split('-').map(Number);
+                if (isNaN(start) || isNaN(end) || start > end) {
+                    throw new Error('Invalid port range.');
+                }
+                ports = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+            } else {
+                // Handle comma-separated input (e.g., 80,443,8080)
+                ports = portsInput.split(',').map(Number);
+                if (ports.some(isNaN)) {
+                    throw new Error('Invalid port list.');
+                }
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            return;
+        }
+
+        try {
+            const response = await fetch('/scan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ip: ipAddress, ports: ports }),
+            });
+
+            // Check if the response status is OK (200-299)
+            if (!response.ok) {
+                throw new Error(`Server returned status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if (data.error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+            } else {
+                resultDiv.innerHTML = '<h3>Scan Results:</h3>';
+                data.results.forEach(port => {
+                    resultDiv.innerHTML += `<p>Port ${port.port}: ${port.status}</p>`;
+                });
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+        }
+    }
+    </script>
+</body>
+</html>

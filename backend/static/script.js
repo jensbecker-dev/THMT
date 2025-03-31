@@ -285,52 +285,58 @@ document.getElementById("target-form").addEventListener("submit", (event) => {
     event.target.reset();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const vpnStatusDiv = document.getElementById("vpn-status");
-    const disconnectVpnBtn = document.getElementById("disconnect-vpn-btn");
+async function scanPorts() {
+    const ipAddress = document.getElementById('ipAddress').value;
+    const portsInput = document.getElementById('ports').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = 'Scanning...';
 
-    // Function to fetch VPN status
-    function fetchVpnStatus() {
-        fetch("/api/vpn-status")
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status === "connected") {
-                    vpnStatusDiv.innerHTML = `<p style="color: #1abc9c;">${data.message}</p>`;
-                    disconnectVpnBtn.style.display = "block"; // Show the disconnect button
-                } else if (data.status === "disconnected") {
-                    vpnStatusDiv.innerHTML = `<p style="color: #e74c3c;">${data.message}</p>`;
-                    disconnectVpnBtn.style.display = "none"; // Hide the disconnect button
-                } else {
-                    vpnStatusDiv.innerHTML = `<p style="color: #f39c12;">${data.message}</p>`;
-                    disconnectVpnBtn.style.display = "none"; // Hide the disconnect button
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching VPN status:", error);
-                vpnStatusDiv.innerHTML = `<p style="color: #e74c3c;">Error checking VPN status.</p>`;
-                disconnectVpnBtn.style.display = "none"; // Hide the disconnect button
-            });
+    // Parse the ports input
+    let ports = [];
+    try {
+        if (portsInput.includes('-')) {
+            // Handle range input (e.g., 1-10000)
+            const [start, end] = portsInput.split('-').map(Number);
+            if (isNaN(start) || isNaN(end) || start > end) {
+                throw new Error('Invalid port range.');
+            }
+            ports = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+        } else {
+            // Handle comma-separated input (e.g., 80,443,8080)
+            ports = portsInput.split(',').map(Number);
+            if (ports.some(isNaN)) {
+                throw new Error('Invalid port list.');
+            }
+        }
+    } catch (error) {
+        resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+        return;
     }
 
-    // Fetch VPN status on page load
-    fetchVpnStatus();
+    try {
+        const response = await fetch('/scan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ip: ipAddress, ports: ports }),
+        });
 
-    // Optionally, refresh VPN status every 10 seconds
-    setInterval(fetchVpnStatus, 10000);
+        // Check if the response status is OK (200-299)
+        if (!response.ok) {
+            throw new Error(`Server returned status: ${response.status}`);
+        }
 
-    // Handle disconnect VPN button click
-    disconnectVpnBtn.addEventListener("click", () => {
-        fetch("/api/vpn-disconnect", {
-            method: "POST",
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                alert(data.message);
-                fetchVpnStatus(); // Refresh VPN status after disconnecting
-            })
-            .catch((error) => {
-                console.error("Error disconnecting VPN:", error);
-                alert("Failed to disconnect VPN.");
+        const data = await response.json();
+        if (data.error) {
+            resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+        } else {
+            resultDiv.innerHTML = '<h3>Scan Results:</h3>';
+            data.results.forEach(port => {
+                resultDiv.innerHTML += `<p>Port ${port.port}: ${port.status}</p>`;
             });
-    });
-});
+        }
+    } catch (error) {
+        resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+    }
+}

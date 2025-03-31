@@ -1,11 +1,14 @@
 import os
 import subprocess
 import platform
+import socket
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from functools import wraps
+import ipaddress
+
 
 # Create a Flask application
 app = Flask(__name__)
@@ -98,51 +101,6 @@ def add_target():
 
     return jsonify({"id": new_target.id, "message": f"Target {target_name} with IP {target_ip} added successfully!"})
 
-# Route to handle OpenVPN connection
-@app.route('/connect-vpn', methods=['POST'])
-@login_required
-def connect_vpn():
-    if 'vpn-file' not in request.files:
-        flash('No file uploaded.', 'error')
-        return redirect(url_for('serve_index'))
-
-    vpn_file = request.files['vpn-file']
-
-    # Save the uploaded file to a temporary location
-    temp_path = os.path.join('/tmp', vpn_file.filename)
-    vpn_file.save(temp_path)
-
-    try:
-        # Run the OpenVPN command using subprocess
-        command = ['sudo', 'openvpn', temp_path]
-
-        # Determine the appropriate creation flags based on the operating system
-        if system == 'Windows':
-            creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
-            process = subprocess.Popen(command, creationflags=creationflags)
-        else:  # Linux/macOS
-            process = subprocess.Popen(command, start_new_session=True)
-
-        flash('Connecting to VPN...', 'success')
-    except Exception as e:
-        flash(f'Failed to connect to VPN: {str(e)}', 'error')
-        return redirect(url_for('serve_index'))
-
-    return redirect(url_for('serve_index'))
-
-@app.route('/api/vpn-disconnect', methods=['POST'])
-@login_required
-def disconnect_vpn():
-    try:
-        # Terminate the OpenVPN process
-        result = subprocess.run(['sudo', 'pkill', 'openvpn'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        if result.returncode == 0:
-            return jsonify({"status": "disconnected", "message": "VPN disconnected successfully."})
-        else:
-            return jsonify({"status": "error", "message": "Failed to disconnect VPN."}), 500
-    except Exception as e:
-        return jsonify({"status": "error", "message": f"Error disconnecting VPN: {str(e)}"}), 500
-
 # Login Page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -217,22 +175,43 @@ def delete_target(target_id):
 def portscan_page():
     return render_template('portscan.html')
 
-@app.route('/api/portscan', methods=['POST'])
-@login_required
-def portscan():
-    target_ip = request.form.get('target-ip')
-    if not target_ip:
-        return "Target IP is required", 400
-
+@app.route('/scan', methods=['POST'])
+def scan():
     try:
-        # Run nmap for port scanning
-        result = subprocess.run(['nmap', target_ip], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        output = result.stdout if result.returncode == 0 else result.stderr
-        return output, 200  # Return the raw output as plain text
-    except Exception as e:
-        return f"Error running port scan: {str(e)}", 500
+        data = request.get_json()
+        ip = data.get('ip')
+        ports = data.get('ports')
 
+        try:
+            ipaddress.ip_address(ip)
+        except ValueError:
+            return jsonify({"error": "Invalid IP address"}), 400
+
+        # Validate and parse ports
+        if not isinstance(ports, list):
+            return jsonify({"error": "Ports must be a list of integers"}), 400
+
+        results = scan_ports(ip, ports)  # Call the Python port scanner function
+        return jsonify({"results": results})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+def scan_ports(ip, ports):
+    results = []
+    for port in ports:
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(1)  # Set timeout for the connection
+                result = s.connect_ex((ip, port))  # Attempt to connect
+                if result == 0:
+                    results.append({"port": port, "status": "open"})
+                else:
+                    results.append({"port": port, "status": "closed"})
+        except Exception as e:
+            results.append({"port": port, "status": f"error: {str(e)}"})
+    return results
 
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
+    # Example usage
