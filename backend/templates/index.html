@@ -77,55 +77,70 @@
                 </ul>
             </aside>
             <div class="content">
-                <div class="dashboard-grid">
+                <div class="dashboard-container">
 
-                    <!-- Section 1 -->
-                    <div class="dashboard-section" id="section-1">
-                        <h1>Target Servers</h1>
-                        <form id="target-form">
-                            <input type="text" id="target-name" placeholder="Enter target name" required>
-                            <input type="text" id="target-ip" placeholder="Enter target IP" required>
-                            <button type="submit" id="add-target-btn">Add Target</button>
-                        </form>
-                        <div class="target-panel">
-                            <ul id="target-list" class="target-list">
-                                <!-- Target servers will be dynamically added here -->
-                            </ul>
+                    <!-- Left Panel -->
+                    <div class="side-panel left-panel">
+                        <h2>Data Visualization</h2>
+                        <p>Placeholder for charts or other data.</p>
+                    </div>
+
+                    <!-- Main Dashboard Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Section 1 -->
+                        <div class="dashboard-section" id="section-1">
+                            <h1>Target Servers</h1>
+                            <form id="target-form">
+                                <input type="text" id="target-name" placeholder="Enter target name" required>
+                                <input type="text" id="target-ip" placeholder="Enter target IP" required>
+                                <button type="submit" id="add-target-btn">Add Target</button>
+                            </form>
+                            <div class="target-panel">
+                                <ul id="target-list" class="target-list">
+                                    <!-- Target servers will be dynamically added here -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Section 2 -->
+                        <div class="dashboard-section" id="section-2">
+                            <div id="terminal-output" style="background-color: #000000; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
+                                <!-- Command output will be displayed here -->
+                            </div>
+                            <form id="terminal-form" action="/execute-command" method="POST">
+                                <label for="command-input"></label>
+                                <input type="text" id="command-input" name="command" placeholder="Enter a command" required>
+                                <button type="submit">Execute</button>
+                            </form>
+                        </div>
+
+                        <!-- Section 3 -->
+                        <div class="dashboard-section" id="section-3">
+                            <h1>OpenVPN Settings</h1>
+                            <form id="vpn-form" action="/connect-vpn" method="POST" enctype="multipart/form-data">
+                                <label for="vpn-file">Upload OpenVPN Certificate:</label>
+                                <input type="file" id="vpn-file" name="vpn-file" accept=".ovpn" required>
+                                <button type="submit">Connect</button>
+                            </form>
+                        </div>
+
+                        <!-- Section 4 -->
+                        <div class="dashboard-section" id="section-4">
+                            <h1>VPN Connection</h1>
+                            <div id="vpn-status" style="padding: 10px; background-color: #000000; color: #ffffff; border-radius: 4px;">
+                                <!-- VPN status will be displayed here -->
+                                <p>Checking VPN status...</p>
+                            </div>
+                            <button id="disconnect-vpn-btn" style="margin-top: 10px; padding: 10px; background-color: #e74c3c; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
+                                Disconnect VPN
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Section 2 -->
-                    <div class="dashboard-section" id="section-2">
-                        <div id="terminal-output" style="background-color: #000000; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
-                            <!-- Command output will be displayed here -->
-                        </div>
-                        <form id="terminal-form" action="/execute-command" method="POST">
-                            <label for="command-input"></label>
-                            <input type="text" id="command-input" name="command" placeholder="Enter a command" required>
-                            <button type="submit">Execute</button>
-                        </form>
-                    </div>
-
-                    <!-- Section 3 -->
-                    <div class="dashboard-section" id="section-3">
-                        <h1>OpenVPN Settings</h1>
-                        <form id="vpn-form" action="/connect-vpn" method="POST" enctype="multipart/form-data">
-                            <label for="vpn-file">Upload OpenVPN Certificate:</label>
-                            <input type="file" id="vpn-file" name="vpn-file" accept=".ovpn" required>
-                            <button type="submit">Connect</button>
-                        </form>
-                    </div>
-
-                    <!-- Section 4 -->
-                    <div class="dashboard-section" id="section-4">
-                        <h1>VPN Connection</h1>
-                        <div id="vpn-status" style="padding: 10px; background-color: #000000; color: #ffffff; border-radius: 4px;">
-                            <!-- VPN status will be displayed here -->
-                            <p>Checking VPN status...</p>
-                        </div>
-                        <button id="disconnect-vpn-btn" style="margin-top: 10px; padding: 10px; background-color: #e74c3c; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
-                            Disconnect VPN
-                        </button>
+                    <!-- Right Panel -->
+                    <div class="side-panel right-panel">
+                        <h2>Additional Info</h2>
+                        <p>Placeholder for additional information or widgets.</p>
                     </div>
                 </div>
             </div>

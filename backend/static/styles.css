@@ -242,9 +242,8 @@ img {
     background-color: black;
     padding-top: 20px;
     padding-bottom: 20px;
-    columns: 1;
     row-gap: 20px;
-    column-gap: 20px;
+    column-gap: 40px;
     font-family: 'Courier New', Courier, monospace;
     padding-left: 20%;
     padding-right: 10%;
@@ -278,25 +277,92 @@ img {
 /* Dashboard Grid Layout */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr; /* Two columns */
+    grid-template-rows: 1fr 2fr 1fr;
     gap: 20px;                     /* Space between grid items */
-    height: 100vh;                 /* Full viewport height */
+    height: auto;                 /* Full viewport height */
+    width: auto;
+    padding: auto;
     box-sizing: border-box;
 }
 
-/* Individual Dashboard Sections */
-.dashboard-section {
+* Dashboard Container */
+.dashboard-container {
+    display: grid;
+    gap: 10px;
+    height: auto;
+    width: auto;
+    padding: 10px
+}
+
+/* Side Panels */
+.side-panel {
     background-color: #28263a;
     color: #ffffff;
-    border-radius: 8px;
     padding: 20px;
+    margin: 20px auto;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: auto;
+    width: 200%;
+}
+
+.left-panel {
+    grid-column: 1 / 2; /* Left side */
+}
+
+.right-panel {
+    grid-column: 2 / 3; /* Right side */
+    width: 100%;
+}
+
+/* Main Dashboard Grid */
+.dashboard-grid {
+    grid-column: 3; /* Right side */
+}
+
+/* Side Panels */
+.side-panel {
+    width: 200px;
+    background-color: #28263a;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    gap: 10px;
+}
+
+.left-panel {
+    float: left;
+    margin-right: 20px;
+}
+
+.right-panel {
+    float: right;
+    margin-left: 20px;
+}
+
+/* Main Dashboard Grid */
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.dashboard-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    grid-template-rows: auto; /* Adjust rows automatically */
+    gap: 20px;
+    padding: 20px;
+    background-color: #28263a;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Section Titles */
@@ -510,6 +576,7 @@ img {
     align-items: left; /* Align items vertically */
     justify-items: left;
     margin-top: 10px;
+    width: 100%;
 }
 
 #terminal-form label {
@@ -552,7 +619,7 @@ img {
     border-color: #ffffff;
     border: 2px;
     max-height: 200px;
-    width: 100%;
+    width: 90%;
     height: 150%;
     overflow-y: auto;
     font-family: monospace;
