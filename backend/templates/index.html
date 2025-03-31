@@ -32,7 +32,7 @@
                     <li class="dropdown">
                         <a href="#recon" class="dropdown-btn">Recon</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#recon-tools">Port Scan</a></li>
+                            <li><a href="portscan">Port Scan</a></li>
                             <li><a href="#recon-tools">Dorking</a></li>
                             <li><a href="#recon-tools">Vulnerability Scan</a></li>
                         </ul>
@@ -79,33 +79,13 @@
             <div class="content">
                 <div class="dashboard-container">
 
-                    <!-- Left Panel -->
-                    <div class="side-panel left-panel">
-                        <h2>Data Visualization</h2>
-                        <p>Placeholder for charts or other data.</p>
-                    </div>
-
                     <!-- Main Dashboard Grid -->
                     <div class="dashboard-grid">
-                        
+
+
                         <!-- Section 1 -->
                         <div class="dashboard-section" id="section-1">
-                            <h1>Target Servers</h1>
-                            <form id="target-form">
-                                <input type="text" id="target-name" placeholder="Enter target name" required>
-                                <input type="text" id="target-ip" placeholder="Enter target IP" required>
-                                <button type="submit" id="add-target-btn">Add Target</button>
-                            </form>
-                            <div class="target-panel">
-                                <ul id="target-list" class="target-list">
-                                    <!-- Target servers will be dynamically added here -->
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Section 2 -->
-                        <div class="dashboard-section" id="section-2">
-                            <h1 id="terminal-title">Terminal</h1><br>
+                            <h1 id="terminal-title">Terminal</h1>
                             <div id="terminal-output" style="background-color: #000000; color: #00ff6a; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
                                 <!-- Command output will be displayed here -->
                             </div>
@@ -114,6 +94,24 @@
                                 <input type="text" id="command-input" name="command" placeholder="Enter a command" required>
                                 <button type="submit">Execute</button>
                             </form>
+                        </div>
+                        
+                        <!-- Section 2 -->
+                        <div class="dashboard-section" id="section-2">
+                            <h1>Target Servers</h1>
+                            
+                            <div class="target-panel">
+                                <ul id="target-list" class="target-list">
+                                    <!-- Target servers will be dynamically added here -->
+                                </ul>
+                            </div>
+
+                            <form id="target-form">
+                                <input type="text" id="target-name" placeholder="Enter target name" required>
+                                <input type="text" id="target-ip" placeholder="Enter target IP" required>
+                                <button type="submit" id="add-target-btn">Add Target</button>
+                            </form>
+
                         </div>
 
                         <!-- Section 3 -->
@@ -137,12 +135,6 @@
                                 Disconnect VPN
                             </button>
                         </div>
-                    </div>
-
-                    <!-- Right Panel -->
-                    <div class="side-panel right-panel">
-                        <h2>Additional Info</h2>
-                        <p>Placeholder for additional information or widgets.</p>
                     </div>
                 </div>
             </div>

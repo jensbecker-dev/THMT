@@ -212,6 +212,27 @@ def delete_target(target_id):
     db.session.commit()
     return jsonify({"message": f"Target {target.name} deleted successfully!"})
 
+@app.route('/portscan')
+@login_required
+def portscan_page():
+    return render_template('portscan.html')
+
+@app.route('/api/portscan', methods=['POST'])
+@login_required
+def portscan():
+    target_ip = request.form.get('target-ip')
+    if not target_ip:
+        return "Target IP is required", 400
+
+    try:
+        # Run nmap for port scanning
+        result = subprocess.run(['nmap', target_ip], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        output = result.stdout if result.returncode == 0 else result.stderr
+        return output, 200  # Return the raw output as plain text
+    except Exception as e:
+        return f"Error running port scan: {str(e)}", 500
+
+
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
