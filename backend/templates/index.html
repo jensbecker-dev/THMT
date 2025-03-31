@@ -96,14 +96,14 @@
                     <!-- Section 2 -->
                     <div class="dashboard-section" id="section-2">
                         <h2>Terminal</h2>
+                        <div id="terminal-output" style="background-color: #000000; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
+                            <!-- Command output will be displayed here -->
+                        </div>
                         <form id="terminal-form" action="/execute-command" method="POST">
-                            <label for="command-input">Enter Command:</label>
+                            <label for="command-input"></label>
                             <input type="text" id="command-input" name="command" placeholder="Enter a command" required>
                             <button type="submit">Execute</button>
                         </form>
-                        <div id="terminal-output" style="background-color: #28263a; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
-                            <!-- Command output will be displayed here -->
-                        </div>
                     </div>
 
                     <!-- Section 3 -->
@@ -118,10 +118,14 @@
 
                     <!-- Section 4 -->
                     <div class="dashboard-section" id="section-4">
-                        <div id="tryhackme-profile">
-                            <p>Check out my TryHackMe profile for hacking challenges and learning resources:</p>
-                            <a href="https://tryhackme.com/p/anarcho" target="_blank" class="profile-link">Visit My Profile</a>
+                        <h2>VPN Connection Status</h2>
+                        <div id="vpn-status" style="padding: 10px; background-color: #28263a; color: #ffffff; border-radius: 4px;">
+                            <!-- VPN status will be displayed here -->
+                            <p>Checking VPN status...</p>
                         </div>
+                        <button id="disconnect-vpn-btn" style="margin-top: 10px; padding: 10px; background-color: #e74c3c; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">
+                            Disconnect VPN
+                        </button>
                     </div>
                 </div>
             </div>

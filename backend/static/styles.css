@@ -441,11 +441,17 @@ img {
     background-color: #16a085;
 }
 
+/* VPN Status Panel */
 #vpn-status {
-    margin-top: 20px;
-    font-size: 1em;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 20px;
+    background-color: #28263a;
     color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 /* Modal styling */
 .modal {
     display: none;

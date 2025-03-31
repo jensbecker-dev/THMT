@@ -50,7 +50,6 @@ class Target(db.Model):
 with app.app_context():
     db.create_all()
 
-# Decorator to protect routes
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -60,6 +59,19 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+@app.route('/api/vpn-status', methods=['GET'])
+@login_required
+def vpn_status():
+    try:
+        # Check if the VPN interface (e.g., tun0) is active
+        result = subprocess.run(['ip', 'a'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if 'tun0' in result.stdout:
+            return jsonify({"status": "connected", "message": "VPN is connected."})
+        else:
+            return jsonify({"status": "disconnected", "message": "VPN is not connected."})
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error checking VPN status: {str(e)}"}), 500
 
 # Serve the index.html file
 @app.route('/')
@@ -117,6 +129,19 @@ def connect_vpn():
         return redirect(url_for('serve_index'))
 
     return redirect(url_for('serve_index'))
+
+@app.route('/api/vpn-disconnect', methods=['POST'])
+@login_required
+def disconnect_vpn():
+    try:
+        # Terminate the OpenVPN process
+        result = subprocess.run(['sudo', 'pkill', 'openvpn'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode == 0:
+            return jsonify({"status": "disconnected", "message": "VPN disconnected successfully."})
+        else:
+            return jsonify({"status": "error", "message": "Failed to disconnect VPN."}), 500
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error disconnecting VPN: {str(e)}"}), 500
 
 # Login Page
 @app.route('/login', methods=['GET', 'POST'])

@@ -284,3 +284,83 @@ document.getElementById("target-form").addEventListener("submit", (event) => {
     // Clear the form
     event.target.reset();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const vpnStatusDiv = document.getElementById("vpn-status");
+
+    // Function to fetch VPN status
+    function fetchVpnStatus() {
+        fetch("/api/vpn-status")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.status === "connected") {
+                    vpnStatusDiv.innerHTML = `<p style="color: #1abc9c;">${data.message}</p>`;
+                } else if (data.status === "disconnected") {
+                    vpnStatusDiv.innerHTML = `<p style="color: #e74c3c;">${data.message}</p>`;
+                } else {
+                    vpnStatusDiv.innerHTML = `<p style="color: #f39c12;">${data.message}</p>`;
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching VPN status:", error);
+                vpnStatusDiv.innerHTML = `<p style="color: #e74c3c;">Error checking VPN status.</p>`;
+            });
+    }
+
+    // Fetch VPN status on page load
+    fetchVpnStatus();
+
+    // Optionally, refresh VPN status every 10 seconds
+    setInterval(fetchVpnStatus, 10000);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const vpnStatusDiv = document.getElementById("vpn-status");
+    const disconnectVpnBtn = document.getElementById("disconnect-vpn-btn");
+
+    // Function to fetch VPN status
+    function fetchVpnStatus() {
+        fetch("/api/vpn-status")
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.status === "connected") {
+                    vpnStatusDiv.innerHTML = `<p style="color: #1abc9c;">${data.message}</p>`;
+                    disconnectVpnBtn.style.display = "block"; // Show the disconnect button
+                } else if (data.status === "disconnected") {
+                    vpnStatusDiv.innerHTML = `<p style="color: #e74c3c;">${data.message}</p>`;
+                    disconnectVpnBtn.style.display = "none"; // Hide the disconnect button
+                } else {
+                    vpnStatusDiv.innerHTML = `<p style="color: #f39c12;">${data.message}</p>`;
+                    disconnectVpnBtn.style.display = "none"; // Hide the disconnect button
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching VPN status:", error);
+                vpnStatusDiv.innerHTML = `<p style="color: #e74c3c;">Error checking VPN status.</p>`;
+                disconnectVpnBtn.style.display = "none"; // Hide the disconnect button
+            });
+    }
+
+    // Fetch VPN status on page load
+    fetchVpnStatus();
+
+    // Optionally, refresh VPN status every 10 seconds
+    setInterval(fetchVpnStatus, 10000);
+
+    // Handle disconnect VPN button click
+    disconnectVpnBtn.addEventListener("click", () => {
+        fetch("/api/vpn-disconnect", {
+            method: "POST",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                alert(data.message);
+                fetchVpnStatus(); // Refresh VPN status after disconnecting
+            })
+            .catch((error) => {
+                console.error("Error disconnecting VPN:", error);
+                alert("Failed to disconnect VPN.");
+            });
+    });
+});
