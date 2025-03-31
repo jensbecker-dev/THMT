@@ -503,6 +503,55 @@ img {
     color: #c0392b;
     transition: color 0.3s ease;
 }
+/* Terminal Panel Styling */
+#terminal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#terminal-form label {
+    font-size: 1em;
+    color: #ffffff;
+}
+
+#terminal-form input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#terminal-form button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#terminal-form button:hover {
+    background-color: #16a085;
+}
+
+#terminal-output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #28263a;
+    color: #ffffff;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
 .social-link {
     border-radius: 50%;
     background-color: #ffffff;

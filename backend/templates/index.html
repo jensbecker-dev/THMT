@@ -89,15 +89,29 @@
                             <button type="submit" id="add-target-btn">Add Target</button>
                         </form>
                         <div class="target-panel">
-                        <ul id="target-list" class="target-list">
-                            <li class="target-list">
-                                <h3>Target Section</h3>  
-                            </li>
-                            <!-- Target servers will be dynamically added here -->
-                        </ul>
+                            <ul id="target-list" class="target-list">
+                                <li class="target-list">
+                                    <h3>Target Section</h3>
+                                </li>
+                                <!-- Target servers will be dynamically added here -->
+                            </ul>
                         </div>
                     </div>
+
                     <!-- Section 2 -->
+                    <div class="dashboard-section" id="section-2">
+                        <h2>Terminal</h2>
+                        <form id="terminal-form" action="/execute-command" method="POST">
+                            <label for="command-input">Enter Command:</label>
+                            <input type="text" id="command-input" name="command" placeholder="Enter a command" required>
+                            <button type="submit">Execute</button>
+                        </form>
+                        <div id="terminal-output">
+                            <!-- Command output will be displayed here -->
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
                     <div class="dashboard-section" id="section-3">
                         <h2>Connect to TryHackMe VPN</h2>
                         <form id="vpn-form" action="/connect-vpn" method="POST" enctype="multipart/form-data">
@@ -105,8 +119,15 @@
                             <input type="file" id="vpn-file" name="vpn-file" accept=".ovpn" required>
                             <button type="submit">Connect</button>
                         </form>
-                        <div id="vpn-status">
-                            <!-- VPN connection status will be displayed here -->
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="dashboard-section" id="section-4">
+                        <h2>TryHackMe Profile</h2>
+                        <div id="tryhackme-profile">
+                            <img src="https://tryhackme-badges.s3.amazonaws.com/anarcho.png" alt="TryHackMe Profile Badge">
+                            <p>Check out my TryHackMe profile for hacking challenges and learning resources:</p>
+                            <a href="https://tryhackme.com/p/anarcho" target="_blank" class="profile-link">Visit My Profile</a>
                         </div>
                     </div>
                 </div>

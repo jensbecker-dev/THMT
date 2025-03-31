@@ -102,3 +102,31 @@ function sendTargetToAPI(target) {
             alert('Failed to send target to API. Please try again.');
         });
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const terminalForm = document.getElementById("terminal-form");
+    const terminalOutput = document.getElementById("terminal-output");
+
+    terminalForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const commandInput = document.getElementById("command-input").value;
+
+        // Send the command to the backend
+        fetch("/execute-command", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `command=${encodeURIComponent(commandInput)}`,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Display the command output
+                terminalOutput.textContent = data.output;
+            })
+            .catch((error) => {
+                console.error("Error executing command:", error);
+                terminalOutput.textContent = "Error executing command.";
+            });
+    });
+});

