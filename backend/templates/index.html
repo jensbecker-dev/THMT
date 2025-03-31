@@ -80,7 +80,7 @@
 
                     <!-- Section 1 -->
                     <div class="dashboard-section" id="section-1">
-                        <h2>Target Servers</h2>
+                        <h1>Target Servers</h1>
                         <form id="target-form">
                             <input type="text" id="target-name" placeholder="Enter target name" required>
                             <input type="text" id="target-ip" placeholder="Enter target IP" required>
@@ -95,7 +95,6 @@
 
                     <!-- Section 2 -->
                     <div class="dashboard-section" id="section-2">
-                        <h2>Terminal</h2>
                         <div id="terminal-output" style="background-color: #000000; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
                             <!-- Command output will be displayed here -->
                         </div>
@@ -108,7 +107,7 @@
 
                     <!-- Section 3 -->
                     <div class="dashboard-section" id="section-3">
-                        <h2>Connect to TryHackMe VPN</h2>
+
                         <form id="vpn-form" action="/connect-vpn" method="POST" enctype="multipart/form-data">
                             <label for="vpn-file">Upload OpenVPN Certificate:</label>
                             <input type="file" id="vpn-file" name="vpn-file" accept=".ovpn" required>
@@ -118,7 +117,7 @@
 
                     <!-- Section 4 -->
                     <div class="dashboard-section" id="section-4">
-                        <h2>VPN Connection Status</h2>
+                        <h2>VPN Status</h2>
                         <div id="vpn-status" style="padding: 10px; background-color: #28263a; color: #ffffff; border-radius: 4px;">
                             <!-- VPN status will be displayed here -->
                             <p>Checking VPN status...</p>
