@@ -4,4 +4,4 @@ Tryhackme Toolset
 
 ## Dashboard
 
-![alt text](image.png)
+![alt text](image-1.png)
