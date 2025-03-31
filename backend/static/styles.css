@@ -227,20 +227,19 @@ img {
 .main {
     padding: 20px;
     position: absolute;
-    top: 0;
+    top: 10px;
     left: 0;
     right: 0;
-    bottom: 0;
-    overflow: auto;
+    bottom: 10px;
     color: #28263a;
-    background-color: #ffffff;
-    padding-top: 20%;
+    background-color: #38383f73;
     row-gap: 20px;
     column-gap: 20px;
 }
 .content {
     color: #ffffff;
-    background-color:rgb(0, 0, 0);
+    border-top-left-radius: 5%;
+    background-color: black;
     padding-top: 20px;
     padding-bottom: 20px;
     columns: 1;
@@ -280,9 +279,8 @@ img {
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two columns */
-    grid-template-rows: 1fr 1fr;   /* Two rows */
+    grid-template-rows: 1fr 1fr 1fr;
     gap: 20px;                     /* Space between grid items */
-    padding: 20px;
     height: 100vh;                 /* Full viewport height */
     box-sizing: border-box;
 }
