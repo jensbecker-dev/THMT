@@ -507,7 +507,8 @@ img {
     display: flex;
     flex-direction: row; /* Align items in a row */
     gap: 10px; /* Add spacing between the input and button */
-    align-items: center; /* Align items vertically */
+    align-items: left; /* Align items vertically */
+    justify-items: left;
     margin-top: 10px;
 }
 
@@ -515,6 +516,7 @@ img {
     font-size: 1em;
     color: #ffffff;
     width: auto; /* Adjust width to fit content */
+    height: 12px;
     margin-right: 10px; /* Add spacing between label and input */
 }
 
@@ -523,7 +525,7 @@ img {
     font-size: 1em;
     border: 2px solid #ffffff;
     border-radius: 4px;
-    width: 100%; /* Adjust width to fill available space */
+    width: 200%; /* Adjust width to fill available space */
     max-width: 300px;
 }
 
@@ -551,10 +553,12 @@ img {
     border: 2px;
     max-height: 200px;
     width: 100%;
-    height: 90%;
+    height: 150%;
     overflow-y: auto;
     font-family: monospace;
     white-space: pre-wrap;
+    justify-content: left;
+    display: block;
 }
 
 .social-link {
