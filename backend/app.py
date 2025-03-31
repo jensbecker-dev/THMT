@@ -1,10 +1,14 @@
 import os
 import subprocess
+import platform
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 
 # Create a Flask application
 app = Flask(__name__)
-app.secret_key = '324-107-257'
+app.secret_key = '133-743-611'
+
+# Determine the operating system
+system = platform.system()
 
 # Serve the index.html file
 @app.route('/')
@@ -35,9 +39,15 @@ def connect_vpn():
     try:
         # Run the OpenVPN command using subprocess
         command = ['sudo', 'openvpn', temp_path]
-        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as process:
-            print(process)
-            flash('Connecting to VPN...', 'success')
+        
+        # Determine the appropriate creation flags based on the operating system
+        if system == 'Windows':
+            creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
+            process = subprocess.Popen(command, creationflags=creationflags)
+        else:  # Linux/macOS
+            process = subprocess.Popen(command, start_new_session=True)
+
+        flash('Connecting to VPN...', 'success')
     except Exception as e:
         flash(f'Failed to connect to VPN: {str(e)}', 'error')
         return redirect(url_for('serve_index'))
@@ -75,6 +85,5 @@ def execute_command():
         return jsonify({"output": f"Error: {str(e)}"}), 500
 
 # Run the Flask application
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
