@@ -1,86 +1,79 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const targetForm = document.getElementById("target-form");
     const targetList = document.getElementById("target-list");
-    const listTargetsBtn = document.getElementById("list-targets-btn");
-    const targetModal = document.getElementById("target-modal");
-    const allTargetsList = document.getElementById("all-targets-list");
-    const closeModalBtn = document.querySelector(".close-btn");
+    targetList.innerHTML = ""; // Clear the list
 
-    // Array to store targets
-    const targets = [];
-    
-targetForm.addEventListener("submit", (event) => {
+    // Fetch saved targets
+    fetch("/api/targets")
+        .then((response) => response.json())
+        .then((data) => {
+            data.forEach((target) => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    ${target.name} (${target.ip})
+                    <button class="delete-btn" data-id="${target.id}">Delete</button>
+                `;
+                targetList.appendChild(listItem);
+
+                // Add event listener to the delete button
+                listItem.querySelector(".delete-btn").addEventListener("click", (event) => {
+                    const targetId = event.target.getAttribute("data-id");
+                    deleteTarget(targetId, listItem);
+                });
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching targets:", error);
+        });
+});
+
+document.getElementById("target-form").addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // Get input values
     const targetName = document.getElementById("target-name").value;
     const targetIP = document.getElementById("target-ip").value;
 
-    // Create target object
-    const target = { name: targetName, ip: targetIP };
+    // Send the target data to the backend
+    fetch("/api/targets", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: targetName, ip: targetIP }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
 
-    // Add target to the array
-    targets.push(target);
+                // Add the target to the list
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    ${targetName} (${targetIP})
+                    <button class="delete-btn" data-id="${data.id}">Delete</button>
+                `;
+                document.getElementById("target-list").appendChild(listItem);
 
-    // Send target to the API
-    sendTargetToAPI(target);
-
-    // Create a new list item
-    const listItem = document.createElement("li");
-    listItem.innerHTML = `
-        <span>${targetName} (${targetIP})</span>
-        <button class="delete-btn">Delete</button>
-    `;
-
-    // Add delete functionality
-    listItem.querySelector(".delete-btn").addEventListener("click", () => {
-        targetList.removeChild(listItem);
-        // Remove target from the array
-        const index = targets.findIndex(
-            (t) => t.name === targetName && t.ip === targetIP
-        );
-        if (index !== -1) targets.splice(index, 1);
-    });
-
-    // Append the new item to the list
-    targetList.appendChild(listItem);
-
-    // Clear the form inputs
-    targetForm.reset();
-});
-
-    // Handle "List All Targets" button click
-    listTargetsBtn.addEventListener("click", () => {
-        // Clear the modal list
-        allTargetsList.innerHTML = "";
-
-        // Populate the modal list with all targets
-        targets.forEach((target) => {
-            const listItem = document.createElement("li");
-            listItem.textContent = `${target.name} (${target.ip})`;
-            allTargetsList.appendChild(listItem);
+                // Add event listener to the delete button
+                listItem.querySelector(".delete-btn").addEventListener("click", (event) => {
+                    const targetId = event.target.getAttribute("data-id");
+                    deleteTarget(targetId, listItem);
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to add target.");
         });
 
-        // Show the modal
-        targetModal.style.display = "block";
-    });
-
-    // Handle modal close button click
-    closeModalBtn.addEventListener("click", () => {
-        targetModal.style.display = "none";
-    });
-
-    // Close modal when clicking outside the modal content
-    window.addEventListener("click", (event) => {
-        if (event.target === targetModal) {
-            targetModal.style.display = "none";
-        }
-    });
+    // Clear the form
+    event.target.reset();
 });
 
 // Function to send target server to the API
 function sendTargetToAPI(target) {
-    fetch('http://127.0.0.1:5000/api/targets', {
+    fetch('http://127.0.0.1:8080/api/targets', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -103,6 +96,112 @@ function sendTargetToAPI(target) {
         });
 }
 document.addEventListener("DOMContentLoaded", () => {
+    const targetForm = document.getElementById("target-form");
+    const targetList = document.getElementById("target-list");
+
+    targetForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const targetName = document.getElementById("target-name").value;
+        const targetIP = document.getElementById("target-ip").value;
+
+        // Send the target data to the backend
+        fetch("/api/targets", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: targetName, ip: targetIP }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert(data.message);
+
+                    // Add the target to the list
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${targetName} (${targetIP})`;
+                    targetList.appendChild(listItem);
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Failed to add target.");
+            });
+
+        // Clear the form
+        targetForm.reset();
+    });
+});
+
+document.getElementById("target-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const targetName = document.getElementById("target-name").value;
+    const targetIP = document.getElementById("target-ip").value;
+
+    // Send the target data to the backend
+    fetch("/api/targets", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: targetName, ip: targetIP }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+
+                // Add the target to the list
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    ${targetName} (${targetIP})
+                    <button class="delete-btn" data-id="${data.id}">Delete</button>
+                `;
+                document.getElementById("target-list").appendChild(listItem);
+
+                // Add event listener to the delete button
+                listItem.querySelector(".delete-btn").addEventListener("click", (event) => {
+                    const targetId = event.target.getAttribute("data-id");
+                    deleteTarget(targetId, listItem);
+                });
+            }
+            if (!targetName || !targetIP) {
+                console.error("Target name or IP is empty!");
+                return;
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to add target.");
+        });
+
+    // Clear the form
+    event.target.reset();
+});
+
+// Function to delete a target
+function deleteTarget(targetId, listItem) {
+    fetch(`/api/targets/${targetId}`, {
+        method: "DELETE",
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            alert(data.message);
+            listItem.remove(); // Remove the target from the list
+        })
+        .catch((error) => {
+            console.error("Error deleting target:", error);
+            alert("Failed to delete target.");
+        });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
     const terminalForm = document.getElementById("terminal-form");
     const terminalOutput = document.getElementById("terminal-output");
 
@@ -121,12 +220,67 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                // Display the command output
-                terminalOutput.textContent = data.output;
+                // Display the command output in the terminal view
+                const output = document.createElement("pre");
+                output.textContent = data.output;
+                terminalOutput.appendChild(output);
+
+                // Scroll to the bottom of the terminal output
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
             })
             .catch((error) => {
                 console.error("Error executing command:", error);
-                terminalOutput.textContent = "Error executing command.";
+                const errorOutput = document.createElement("pre");
+                errorOutput.textContent = "Error executing command.";
+                terminalOutput.appendChild(errorOutput);
             });
+
+        // Clear the command input
+        terminalForm.reset();
     });
+});
+
+document.getElementById("target-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const targetName = document.getElementById("target-name").value;
+    const targetIP = document.getElementById("target-ip").value;
+
+    // Send the target data to the backend
+    fetch("/api/targets", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: targetName, ip: targetIP }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+
+                // Add the target to the list
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    ${targetName} (${targetIP})
+                    <button class="delete-btn" data-id="${data.id}">Delete</button>
+                `;
+                document.getElementById("target-list").appendChild(listItem);
+
+                // Add event listener to the delete button
+                listItem.querySelector(".delete-btn").addEventListener("click", (event) => {
+                    const targetId = event.target.getAttribute("data-id");
+                    deleteTarget(targetId, listItem);
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to add target.");
+        });
+
+    // Clear the form
+    event.target.reset();
 });

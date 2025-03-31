@@ -9,7 +9,7 @@ from functools import wraps
 
 # Create a Flask application
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '747-880-240'
+app.config['SECRET_KEY'] = '673-658-354'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'  # Use a suitable database URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To suppress a warning
 db = SQLAlchemy(app)
@@ -40,12 +40,11 @@ class User(db.Model):
 class Target(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    ip = db.Column(db.String(15), nullable=False)  # Assuming IPv4
-    user_id = db.Column(db.Integer, ForeignKey('user.id'), nullable=False)
-    user = relationship('User', backref=db.backref('targets', lazy=True))
+    ip = db.Column(db.String(100), nullable=False)
+    user_id = db.Column(db.Integer, nullable=True)  # Optional: Link to a user if needed
 
     def __repr__(self):
-        return f'<Target {self.name}>'
+        return f'<Target {self.name} - {self.ip}>'
 
 # Create tables
 with app.app_context():
@@ -75,22 +74,17 @@ def add_target():
     data = request.json
     target_name = data.get('name')
     target_ip = data.get('ip')
-    user_id = session.get('user_id')
+    user_id = session.get('user_id')  # Optional: Associate with a logged-in user
 
+    if not target_name and not target_ip:
+        return jsonify({"error": "Target name and IP are required"}), 400
+
+    # Save the target to the database
     new_target = Target(name=target_name, ip=target_ip, user_id=user_id)
     db.session.add(new_target)
     db.session.commit()
 
-    return jsonify({"message": f"Target {target_name} with IP {target_ip} added successfully!"})
-
-# API route to get all targets for the current user
-@app.route('/api/targets', methods=['GET'])
-@login_required
-def get_targets():
-    user_id = session.get('user_id')
-    targets = Target.query.filter_by(user_id=user_id).all()
-    target_list = [{"name": target.name, "ip": target.ip} for target in targets]
-    return jsonify(target_list)
+    return jsonify({"id": new_target.id, "message": f"Target {target_name} with IP {target_ip} added successfully!"})
 
 # Route to handle OpenVPN connection
 @app.route('/connect-vpn', methods=['POST'])
@@ -174,6 +168,24 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+@app.route('/api/targets', methods=['GET'])
+@login_required
+def get_targets():
+    user_id = session.get('user_id')  # Optional: Filter by user
+    targets = Target.query.filter_by(user_id=user_id).all() if user_id else Target.query.all()
+    return jsonify([{"id": t.id, "name": t.name, "ip": t.ip} for t in targets])
+
+@app.route('/api/targets/<int:target_id>', methods=['DELETE'])
+@login_required
+def delete_target(target_id):
+    target = Target.query.get(target_id)
+    if not target:
+        return jsonify({"error": "Target not found"}), 404
+
+    db.session.delete(target)
+    db.session.commit()
+    return jsonify({"message": f"Target {target.name} deleted successfully!"})
 
 # Run the Flask application
 if __name__ == '__main__':

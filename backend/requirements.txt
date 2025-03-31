@@ -1,4 +1,4 @@
 flask
 unitest
 SQLAlchemy
-flask_sqlalchemy
+flask_SQLAlchemy

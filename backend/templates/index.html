@@ -26,7 +26,7 @@
                     <li class="dropdown">
                         <a href="#overview" class="dropdown-btn">Overview</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#overview-details">Details</a></li>
+                            <li><a href="#serve_index">Details</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -34,7 +34,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#recon-tools">Port Scan</a></li>
                             <li><a href="#recon-tools">Dorking</a></li>
-                            <li><a href="recon-tools">Vulnerability Scan</a></li>
+                            <li><a href="#recon-tools">Vulnerability Scan</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -77,6 +77,7 @@
             </aside>
             <div class="content">
                 <div class="dashboard-grid">
+
                     <!-- Section 1 -->
                     <div class="dashboard-section" id="section-1">
                         <h2>Target Servers</h2>
@@ -87,9 +88,6 @@
                         </form>
                         <div class="target-panel">
                             <ul id="target-list" class="target-list">
-                                <li class="target-list">
-                                    <h3>Target Section</h3>
-                                </li>
                                 <!-- Target servers will be dynamically added here -->
                             </ul>
                         </div>
@@ -103,7 +101,7 @@
                             <input type="text" id="command-input" name="command" placeholder="Enter a command" required>
                             <button type="submit">Execute</button>
                         </form>
-                        <div id="terminal-output">
+                        <div id="terminal-output" style="background-color: #28263a; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
                             <!-- Command output will be displayed here -->
                         </div>
                     </div>
@@ -120,9 +118,7 @@
 
                     <!-- Section 4 -->
                     <div class="dashboard-section" id="section-4">
-                        <h2>TryHackMe Profile</h2>
                         <div id="tryhackme-profile">
-                            <img src="https://tryhackme-badges.s3.amazonaws.com/anarcho.png" alt="TryHackMe Profile Badge">
                             <p>Check out my TryHackMe profile for hacking challenges and learning resources:</p>
                             <a href="https://tryhackme.com/p/anarcho" target="_blank" class="profile-link">Visit My Profile</a>
                         </div>

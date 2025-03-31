@@ -339,7 +339,7 @@ img {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .dashboard-grid {
         grid-template-columns: 1fr; /* Single column for smaller screens */
         grid-template-rows: auto;  /* Adjust rows automatically */
@@ -360,19 +360,12 @@ img {
     color: #fff;
 }
 .target-list li {
-    background-color: #ffffff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: #28263a;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    /* Style for Target List Items */
+    color: #000000; /* Set text color to black */
+    font-size: 1em;
+    padding: 5px 0;
 }
+
 .target-list li span {
     font-size: 1em;
     color: #34495e;
