@@ -1,6 +1,6 @@
-# THMD
+# THMT
 
-Tryhackme Toolset
+**Tryhackme Toolset**
 
 ## Login
 
