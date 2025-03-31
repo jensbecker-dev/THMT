@@ -87,6 +87,7 @@
 
                     <!-- Main Dashboard Grid -->
                     <div class="dashboard-grid">
+                        
                         <!-- Section 1 -->
                         <div class="dashboard-section" id="section-1">
                             <h1>Target Servers</h1>
@@ -104,7 +105,8 @@
 
                         <!-- Section 2 -->
                         <div class="dashboard-section" id="section-2">
-                            <div id="terminal-output" style="background-color: #000000; color: #ffffff; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
+                            <h1 id="terminal-title">Terminal</h1><br>
+                            <div id="terminal-output" style="background-color: #000000; color: #00ff6a; padding: 10px; margin-top: 20px; height: 200px; overflow-y: auto; border-radius: 4px; font-family: monospace;">
                                 <!-- Command output will be displayed here -->
                             </div>
                             <form id="terminal-form" action="/execute-command" method="POST">
