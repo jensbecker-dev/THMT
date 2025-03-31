@@ -98,17 +98,16 @@
                         </div>
                     </div>
                     <!-- Section 2 -->
-                    <div class="dashboard-section" id="section-2">
-                        <h2>Reverse Shell Connections</h2>
-                        <form id="reverse-shell-list">
+                    <div class="dashboard-section" id="section-3">
+                        <h2>Connect to TryHackMe VPN</h2>
+                        <form id="vpn-form" action="/connect-vpn" method="POST" enctype="multipart/form-data">
+                            <label for="vpn-file">Upload OpenVPN Certificate:</label>
+                            <input type="file" id="vpn-file" name="vpn-file" accept=".ovpn" required>
+                            <button type="submit">Connect</button>
                         </form>
-                            <ul id="reverse-shell-list">
-                                <!-- Active reverse shell connections will be dynamically added here -->
-                            </ul>
-                            <li class="target-list">
-                                <h3>Offline</h3>
-                            </li>
-                        </form>
+                        <div id="vpn-status">
+                            <!-- VPN connection status will be displayed here -->
+                        </div>
                     </div>
                 </div>
             </div>
